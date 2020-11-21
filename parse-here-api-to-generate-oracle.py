@@ -1,10 +1,12 @@
 import requests
-access_token = "<>HERE_API_ACCESS_TOKEN"
+access_token = "<HERE_API_ACCESS_TOKEN>"
 head = {'Authorization': 'Bearer ' + access_token}
+# Example api to invoke HERE API
 url0="https://geocoder.ls.hereapi.com/search/6.2/geocode.json?languages=en-US&maxresults=1&searchtext=CHEZ ROUX,ESTRABLIN,38780,France"
 url1 = "https://geocoder.ls.hereapi.com/6.2/geocode.json?searchtext=72+AVENUE+DE+LA+GARE+CHEZ+SARL+BORA+CAGNES+SUR+MER+France+06800&additionaldata=IncludeMicroPointAddresses,true&locationattributes=mapReference&gen=9"
 url = "https://geocoder.ls.hereapi.com/6.2/geocode.json?languages=en-US&searchtext=72+AVENUE+DE+LA+GARE+CHEZ+SARL+BORA+CAGNES+SUR+MER+France+06800"
 
+# util method to invoke HERE API
 def getHereApiResponse(searchtext):
     base_url = "https://geocoder.ls.hereapi.com/6.2/geocode.json?languages=en-US&searchtext="
     url = base_url + searchtext
@@ -26,6 +28,7 @@ def getHereApiResponse(searchtext):
 INPUT_FILE_PATH = "/Users/sruthip/Downloads/part0-parsed-combined-street1.csv"
 df = pd.read_csv(INPUT_FILE_PATH, header=0)[["id", "model_input"]]
 
+# Hit HERE API TO GET LABELS
 out = []
 start = timenow()
 for i in range(len(df)):
