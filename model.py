@@ -274,6 +274,7 @@ model.summary()
 
 optimizer = tf.train.AdamOptimizer(learning_rate = 2e-5)
 
+# Define custom accuracy and loss functions for CRF
 def accuracy(y_true, y_pred):
     print("In Accuracy")
     crf, idx = y_pred._keras_history[:2]
@@ -317,6 +318,7 @@ def loss(y_true, y_pred):
     cost = tf.reduce_mean(-log_likelihood)
     return cost
 
+# COMPILE MODEL
 model.compile(loss=loss, metrics=[accuracy], optimizer=optimizer)
 
 # INIT MODEL
@@ -328,6 +330,7 @@ def initialize_vars(sess):
 
 initialize_vars(sess)
 
+# TRAIN MODEL
 num_train_samples = 50000
 model.fit(
     [train_input_ids[:num_train_samples], train_input_masks[:num_train_samples], train_segment_ids[:num_train_samples], train_sequence_lengths[:num_train_samples]],
@@ -340,7 +343,7 @@ model.fit(
     batch_size=512
 )
 
-# SAVING MODEL
+# SAVEDMODEL
 tf.saved_model.simple_save(
             sess,
             'street_ner_as_savedmodel_50K_samples',
